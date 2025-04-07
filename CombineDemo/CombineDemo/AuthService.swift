@@ -21,7 +21,7 @@ struct UserNameAvailableMessage: Codable {
   let userName: String
 }
 
-actor AuthenticationService {
+actor AuthService {
   func checkUserNameAvailableOldSchool(userName: String,
                                        completion: @Sendable @escaping (Result<Bool, NetworkError>) -> Void) {
     guard let url = URL(string: "http://localhost:8080/isUserNameAvailable?userName=\(userName)") else {
