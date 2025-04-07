@@ -15,6 +15,7 @@ struct SignUpForm: View {
           // 사용자 이름 입력 필드
           Section {
             TextField("사용자 이름", text: $viewModel.username)
+                  .autocapitalization(.none)
           } footer: {
             Text(viewModel.usernameMessage)
               .foregroundColor(.red)

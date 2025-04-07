@@ -4,7 +4,6 @@
 //
 //  Created by NoelMacMini on 4/7/25.
 //
-
 import Foundation
 import Combine
 
@@ -19,12 +18,40 @@ class SignUpFormViewModel: ObservableObject {
     @Published var passwordMessage: String = ""
     @Published var isValid: Bool = false
     
+    var authService = AuthService()
+    
     // 유저이름 유효성 검사 (3자 이상)
     private lazy var isUsernameLengthValidPublisher: AnyPublisher<Bool, Never> = {
         $username
             .map { $0.count >= 3 }
             .eraseToAnyPublisher()
     }()
+    
+    private lazy var isUsernameAvailablePublisher: AnyPublisher<Bool, Never> = {
+        $username
+            .debounce(for: 0.8, scheduler: DispatchQueue.main)
+            .removeDuplicates()
+            .compactMap { username -> String? in
+                // 유저 이름이 비어있으면 nil을 반환
+                if username.isEmpty {
+                    return nil
+                }
+                return username
+            }
+            .flatMap { username -> AnyPublisher<Bool, Never> in
+                return self.authService.checkUserNameAvailableNaive(userName: username)
+            }
+            .receive(on: DispatchQueue.main)
+            .share()
+            .eraseToAnyPublisher()
+    }()
+    
+    private lazy var isUsernameValidPublisher: AnyPublisher<Bool, Never> = {
+       Publishers.CombineLatest(isUsernameLengthValidPublisher, isUsernameAvailablePublisher)
+         .map { $0 && $1 }
+         .eraseToAnyPublisher()
+     }()
+    
     
     // 비밀번호 유효성검사 (비밀번호가 비어있음을 검사)
     private lazy var isPasswordEmptyPublisher: AnyPublisher<Bool, Never> = {
@@ -51,15 +78,23 @@ class SignUpFormViewModel: ObservableObject {
     }()
     
     private lazy var isFormValidPublisher: AnyPublisher<Bool, Never> = {
-      Publishers.CombineLatest(isUsernameLengthValidPublisher, isPasswordValidPublisher)
+        Publishers.CombineLatest(isUsernameValidPublisher, isPasswordValidPublisher)
         .map { $0 && $1 }
         .eraseToAnyPublisher()
     }()
     
     init() {
         // 유저 이름 유효성 검사
-        isUsernameLengthValidPublisher
-            .map { $0 ? "" : "사용자 이름은 3자 이상이어야 합니다." }
+        Publishers.CombineLatest(isUsernameLengthValidPublisher, isUsernameAvailablePublisher)
+           .map { isLengthValid, isAvailable in
+             if !isLengthValid {
+               return "사용자 이름은 3자 이상이어야 합니다."
+             } else if !isAvailable {
+               return "사용자 이름이 이미 사용중입니다."
+             } else {
+               return ""
+             }
+           }
             .assign(to: &$usernameMessage)
         
         // 비밀번호 유효성 검사
