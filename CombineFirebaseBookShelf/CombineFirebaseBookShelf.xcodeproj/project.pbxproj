@@ -11,6 +11,7 @@
 		8A2AEB8E2DA5FF4B0090DB46 /* FirebaseAppCheck in Frameworks */ = {isa = PBXBuildFile; productRef = 8A2AEB8D2DA5FF4B0090DB46 /* FirebaseAppCheck */; };
 		8A2AEBFA2DA600AC0090DB46 /* FirebaseAuth in Frameworks */ = {isa = PBXBuildFile; productRef = 8A2AEBF92DA600AC0090DB46 /* FirebaseAuth */; };
 		8A2AEBFC2DA600BA0090DB46 /* FirebaseFirestore in Frameworks */ = {isa = PBXBuildFile; productRef = 8A2AEBFB2DA600BA0090DB46 /* FirebaseFirestore */; };
+		8A2AEC172DA62C5C0090DB46 /* FirebaseFirestoreCombine-Community in Frameworks */ = {isa = PBXBuildFile; productRef = 8A2AEC162DA62C5C0090DB46 /* FirebaseFirestoreCombine-Community */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -33,6 +34,7 @@
 				8A2AEB8E2DA5FF4B0090DB46 /* FirebaseAppCheck in Frameworks */,
 				8A2AEBFC2DA600BA0090DB46 /* FirebaseFirestore in Frameworks */,
 				8A2AEBFA2DA600AC0090DB46 /* FirebaseAuth in Frameworks */,
+				8A2AEC172DA62C5C0090DB46 /* FirebaseFirestoreCombine-Community in Frameworks */,
 				8A2AEB8C2DA5FF4B0090DB46 /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -88,6 +90,7 @@
 				8A2AEB8D2DA5FF4B0090DB46 /* FirebaseAppCheck */,
 				8A2AEBF92DA600AC0090DB46 /* FirebaseAuth */,
 				8A2AEBFB2DA600BA0090DB46 /* FirebaseFirestore */,
+				8A2AEC162DA62C5C0090DB46 /* FirebaseFirestoreCombine-Community */,
 			);
 			productName = CombineFirebaseBookShelf;
 			productReference = 8A2AEB772DA5F9240090DB46 /* CombineFirebaseBookShelf.app */;
@@ -382,6 +385,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 8A2AEB8A2DA5FF4B0090DB46 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
 			productName = FirebaseFirestore;
+		};
+		8A2AEC162DA62C5C0090DB46 /* FirebaseFirestoreCombine-Community */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8A2AEB8A2DA5FF4B0090DB46 /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = "FirebaseFirestoreCombine-Community";
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
