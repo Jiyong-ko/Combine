@@ -31,7 +31,7 @@ private class BookDetailViewModel: ObservableObject {
   }
 }
 
-struct OnDemandBookDetailsViewWithCombine: View {
+struct CombineBookDetailView: View {
   @StateObject private var viewModel = BookDetailViewModel()
   
     var body: some View {
@@ -59,5 +59,5 @@ struct OnDemandBookDetailsViewWithCombine: View {
 }
 
 #Preview {
-  OnDemandBookDetailsViewWithCombine()
+  CombineBookDetailView()
 }
