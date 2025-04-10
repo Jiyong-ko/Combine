@@ -16,6 +16,7 @@ class AppDelegate: NSObject, UIApplicationDelegate {
     FirebaseApp.configure()
     
     // 에뮬레이터 설정
+    // firebase emulators:start --import=./combine-sample
     Auth.auth().useEmulator(withHost: "localhost", port: 9099)
     Firestore.firestore().useEmulator(withHost: "localhost", port: 8080)
     // Firestore Settings
